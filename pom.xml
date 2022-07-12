@@ -38,7 +38,8 @@
     </modules>
 
     <build>
-    <pluginManagement>
+        <defaultGoal>compile</defaultGoal>
+        <pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -60,6 +60,7 @@ import java.util.concurrent.Executors;
 
 import static io.moquette.BrokerConstants.*;
 import static io.moquette.logging.LoggingUtils.getInterceptorIds;
+import static java.util.concurrent.Executors.*;
 
 /**
  * Launch a configured version of the server.
@@ -248,9 +249,9 @@ public class Server {
         LOG.info("Starting Moquette Server. MQTT message interceptors={}", getInterceptorIds(handlers));
 
         int threadNum = Runtime.getRuntime().availableProcessors() * 2;
-        dbScheduler = new ThreadPoolExecutorWrapper(Executors.newScheduledThreadPool(threadNum), threadNum, "db");
-        imBusinessScheduler = new ThreadPoolExecutorWrapper(Executors.newScheduledThreadPool(threadNum), threadNum, "business");
-        callbackScheduler = new ThreadPoolExecutorWrapper(Executors.newScheduledThreadPool(1), 1, "callback");
+        dbScheduler = new ThreadPoolExecutorWrapper(newScheduledThreadPool(threadNum), threadNum, "db");
+        imBusinessScheduler = new ThreadPoolExecutorWrapper(newScheduledThreadPool(threadNum), threadNum, "business");
+        callbackScheduler = new ThreadPoolExecutorWrapper(newScheduledThreadPool(1), 1, "callback");
 
         final String handlerProp = System.getProperty(BrokerConstants.INTERCEPT_HANDLER_PROPERTY_NAME);
         if (handlerProp != null) {
@@ -368,7 +369,7 @@ public class Server {
     
     private String getServerIp(IConfig config) {
         String serverIp = config.getProperty(BrokerConstants.SERVER_IP_PROPERTY_NAME);
-        if (serverIp == null || serverIp.equals("0.0.0.0")) {
+        if (serverIp == null || "0.0.0.0".equals(serverIp)) {
             String warning = "警告：无效配置，server.ip不能为空，需要配置服务的公网IP地址或者域名才能在公网使用！！！\nIM服务将使用本地地址，只能在局域网内使用！";
             System.out.println(warning);
             LOG.error(warning);

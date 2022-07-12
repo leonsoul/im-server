@@ -52,13 +52,13 @@ public class ResourceLoaderConfig extends IConfig {
             configReader = resourceLoader.loadDefaultResource();
         }
 
-        if (configReader == null) {
-            LOG.error(
-                    "The resource loader returned no configuration reader. ResourceLoader = {}, configName = {}.",
-                    resourceLoader.getName(),
-                    configName);
-            throw new IllegalArgumentException("Can't locate " + resourceLoader.getName() + " \"" + configName + "\"");
-        }
+//        if (configReader == null) {
+//            LOG.error(
+//                    "The resource loader returned no configuration reader. ResourceLoader = {}, configName = {}.",
+//                    resourceLoader.getName(),
+//                    configName);
+//            throw new IllegalArgumentException("Can't locate " + resourceLoader.getName() + " \"" + configName + "\"");
+//        }
 
         LOG.info(
                 "Parsing configuration properties. ResourceLoader = {}, configName = {}.",
